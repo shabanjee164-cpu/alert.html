@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Management And Life Tracker - Complete Integrated System</title>
+<style>
+/* ================================================================
+   سیکشن 1 شروع: بنیادی اسٹائلز (متغیرات، باڈی، کنٹینر)
+   ================================================================ */
+:root {
+    --primary: #1e293b;
+    --accent: #2563eb;
+    --danger: #ef4444;
+    --golden: #d97706;
+    --warning: #d97706;
+    --success: #10b981;
+    --purple: #8b5cf6;
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #334155;
+    --border: #e2e8f0;
+    --radius: 16px;
+}
+* { box-sizing: border-box; }
+body {
+    background-color: var(--bg);
+    font-family: system-ui, -apple-system, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 12px;
+    margin: 0;
+    color: var(--text);
+    line-height: 1.6;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+/* ہر سیکشن کی ہیڈنگ سینٹر */
+.section-heading {
+    text-align: center;
+    font-size: 17px;
+    font-weight: bold;
+    margin: 4px 0 12px;
+}
+/* ================================================================
+   سیکشن 1 ختم
+   ================================================================ */
+
+/* ================================================================
+   سیکشن 2 شروع: کارڈ، ایپ ہیڈر، ٹکر
+   ================================================================ */
+.card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+.app-header {
+    background: linear-gradient(135deg, #1e293b, #0f172a);
+    color: #fff;
+    text-align: center;
+    padding: 12px 8px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-bottom: 4px solid var(--accent);
+}
+.ticker-bar {
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    color: var(--golden);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    overflow: hidden;
+    white-space: nowrap;
+}
+.ticker-text {
+    display: inline-block;
+    animation: customTickerRight 35s linear infinite;
+}
+@keyframes customTickerRight {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+.alert-ticker-bar {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    color: var(--danger);
+    padding: 10px 14px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+.continuous-blink {
+    animation: fastBlink 0.8s infinite alternate !important;
+    background: #ffe4e6 !important;
+}
+@keyframes fastBlink {
+    0% { opacity: 1; background-color: #fef2f2; }
+    100% { opacity: 0.3; background-color: #ef4444; color: white; }
+}
+.alert-skip-btn {
+    background: var(--danger);
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+}
+/* ================================================================
+   سیکشن 2 ختم
+   ================================================================ */
+
+/* ================================================================
+   سیکشن 3 شروع: ڈیوٹی کارڈ اسٹائلز
+   ================================================================ */
+.duty-card {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    border: 2px solid #cbd5e1;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.duty-header {
+    font-weight: bold;
+    color: var(--primary);
+    font-size: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 10px;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+.members-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+.member-box {
+    background: #f1f5f9;
+    padding: 14px;
+    border-radius: 10px;
+    border-right: 6px solid var(--accent);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+.member-box-2 { border-right-color: var(--success); }
+.member-title { font-size: 13px; color: #64748b; font-weight: 600; }
+.member-name { font-size: 20px; font-weight: bold; color: #0f172a; }
+.leave-box {
+    background: #fffbe6;
+    border: 1px solid #ffe58f;
+    padding: 14px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.leave-select, .select-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    background: white;
+    color: #0f172a;
+    outline: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+.leave-btn {
+    background: var(--golden);
+    color: white;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.leave-btn:hover { background: #b45309; }
+.divider-line { border: 0; height: 2px; background: #e2e8f0; margin: 4px 0; }
+.status-message {
+    display: none;
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #a7f3d0;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+}
+/* ================================================================
+   سیکشن 3 ختم
+   ================================================================ */
+
+/* ================================================================
+   سیکشن 4 شروع: ٹاسک ٹریکر اسٹائلز
+   ================================================================ */
+.task-box {
+    width: 100%;
+    background: white;
+    border: 2px solid var(--accent);
+    border-radius: 10px;
+    padding: 20px 10px;
+    text-align: center;
+    box-sizing: border-box;
+}
+.task-name { font-size: 20px; font-weight: bold; color: #0f172a; margin-bottom: 8px; }
+.task-points {
+    display: inline-block;
+    background: var(--golden);
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.buttons-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    width: 100%;
+}
+.btn {
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 14px;
+}
+.btn-done { background: var(--success); }
+.btn-not-done { background: var(--danger); }
+.btn-na { background: #64748b; }
+.history-card {
+    width: 100%;
+    background: white;
+    border: 1px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 15px;
+    box-sizing: border-box;
+}
+.total-score-bar {
+    background: var(--primary);
+    color: white;
+    padding: 10px;
+    border-radius: 6px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.history-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: bold;
+}
+.status-done { background: #ecfdf5; color: #047857; }
+.status-not-done { background: #fef2f2; color: #ef4444; }
+.status-na { background: #f1f5f9; color: #475569; }
+/* ================================================================
+   سیکشن 4 ختم
+   ================================================================ */
+
+/* ================================================================
+   سیکشن 5 شروع: فائنل رزلٹ ٹیبل اسٹائلز
+   ================================================================ */
+.clean-result-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+.clean-result-table th, .clean-result-table td {
+    padding: 10px;
+    text-align: right;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+}
+/* ================================================================
+   سیکشن 5 ختم
+   ================================================================ */
+
+/* ================================================================
+   سیکشن 6 شروع: ہسٹری اسکرول باکس اسٹائلز (ڈائٹ + علامات)
+   ================================================================ */
+.history-scroll-box {
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 13px;
+    height: 220px;
+    max-height: 220px;
+    overflow-y: auto;
+}
+.diet-history-container {
+    background: #fffdf4;
+    border: 1px solid var(--warning);
+}
+.symptom-history-container {
+    background: #fdf4ff;
+    border: 1px solid #f5d0fe;
+}
+.log-row {
+    padding: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+.diet-row { border-bottom: 1px dashed #fde68a; }
+.symptom-row { border-bottom: 1px dashed #f5d0fe; }
+.log-row:last-child { border-bottom: none; }
+.row-left { display: flex; align-items: center; gap: 10px; }
+.setting-btn-pro {
+    background: #f8fafc;
+    border: 1px solid var(--border);
+    color: var(--primary);
+    padding: 6px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+}
+.setting-btn-pro:hover { background: #e2e8f0; }
+.inline-settings-panel {
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+    display: none;
+}
+.diet-panel { background: #fffbeb; border: 1px solid #fde68a; }
+.symptom-panel { background: #f5f3ff; border: 1px solid #ddd6fe; }
+.btn-group-custom { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.btn-danger { background: var(--danger); }
+.btn-success { background: var(--success); }
+.btn-primary { background: var(--accent); }
+.btn-secondary { background: #64748b; }
+/* ================================================================
+   سیکشن 6 ختم
+   ================================================================ */
+
+/* ================================================================
+   سیکشن 7 شروع: پرسنٹیج باکسز اسٹائلز
+   ================================================================ */
+.percent-row { display: flex; gap: 8px; width: 100%; }
+.percent-box {
+    flex: 1;
+    color: #fff;
+    padding: 12px 6px;
+    border-radius: 10px;
+    text-align: center;
+}
+.percent-box-green { background: linear-gradient(135deg, #059669, #10b981); box-shadow: 0 4px 12px rgba(5,150,105,0.2); }
+.percent-box-blue { background: linear-gradient(135deg, #2563eb, #3b82f6); box-shadow: 0 4px 12px rgba(37,99,235,0.2); }
+.percent-box-purple { background: linear-gradient(135deg, #7c3aed, #8b5cf6); box-shadow: 0 4px 12px rgba(124,58,237,0.2); }
+.task-history-scroll { max-height:220px; overflow-y:auto; margin-bottom:10px; }
+.summary-heading { margin-bottom:12px; color:var(--primary); text-align:center; }
+.percent-label { font-weight:800; font-size:13px; margin-bottom:6px; }
+.percent-value { font-size:25px; font-weight:900; line-height:1.1; }
+.diet-item-section { background:#fffdf4; border:1px solid #fde68a; border-radius:8px; padding:8px 10px; }
+.diet-item-section summary { cursor:pointer; color:#d97706; font-weight:800; font-size:12px; list-style-position:inside; }
+.diet-item-content { display:flex; align-items:center; gap:8px; margin-top:8px; }
+.diet-item-content span { flex:2; font-size:12px; color:#334155; }
+.diet-item-content select { flex:1; min-width:70px; padding:4px; font-size:11px; border-radius:4px; border:1px solid #cbd5e1; }
+@media (max-width:700px) { .percent-row { flex-direction:column; } }
+.percent-label { font-size: 11px; font-weight: bold; opacity: 0.9; }
+.percent-value { font-size: 16px; font-weight: bold; margin-top: 4px; }
+/* ================================================================
+   سیکشن 7 ختم
+   ================================================================ */
+
+@media (max-width: 480px) {
+    .members-group { grid-template-columns: 1fr; }
+    .buttons-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ================================================================
+     سیکشن 1 شروع: ایپ ہیڈر + ٹکر پٹیاں
+     ================================================================ -->
+*
+
+    <div class="app-header">⚡ Smart Management And Life Tracker</div>
+
+    <div class="ticker-bar">
+        <div class="ticker-text">📢 تمام بٹنز 100% فعال ہیں - آپ کا ڈیٹا خودکار طریقے سے نیچے محفوظ اور لائیو اپ ڈیٹ ہو رہا ہے۔</div>
+    </div>
+
+    <div class="alert-ticker-bar" id="alertTickerBar">
+        <span id="alertMsgText">🚨 اہم الرٹ 25 سیکنڈ کا ٹائمر جاری ہے... (<b id="alertTimer">25</b>s)</span>
+        <button class="alert-skip-btn" onclick="skipAlertTicker()">اسکیپ ❌</button>
+    </div>
+
+#
+<!-- ============ سیکشن 1 ختم ============ -->
+
+
+<!-- ================================================================
+     سیکشن 2 شروع: ڈیوٹی اور چھٹی کارڈ
+     ================================================================ -->
+*
+
+    <div class="card">
+        <div class="section-heading" style="color:var(--primary);">📌 آج کی ڈیوٹی ممبران</div>
+        <div class="duty-card">
+            <div class="duty-header">
+                <span>🔄 24 گھنٹے ڈیوٹی</span>
+                <span style="font-size: 12px; color: #64748b; font-weight: normal;">🔄 رات 12:00 بجے تبدیلی</span>
+            </div>
+
+            <div class="members-group">
+                <div class="member-box">
+                    <span class="member-title">👤 ڈیوٹی ممبر 1:</span>
+                    <span class="member-name" id="member1Name">علی احمد</span>
+                </div>
+                <div class="member-box member-box-2">
+                    <span class="member-title">👤 ڈیوٹی ممبر 2:</span>
+                    <span class="member-name" id="member2Name">محمد عثمان</span>
+                </div>
+            </div>
+
+            <div class="leave-box">
+                <span style="font-size: 13px; font-weight: bold; color: #854d0e;">📝 چھٹی کے لیے ممبر منتخب کریں (Drop Line):</span>
+
+                <select id="leaveMemberSelect" class="leave-select">
+                    <option value="">-- ممبر منتخب کریں --</option>
+                </select>
+
+                <button class="leave-btn" onclick="submitLeaveRequest()">🏖️ چھٹی سبمٹ کریں</button>
+            </div>
+
+            <hr class="divider-line">
+            <div class="status-message" id="leaveStatusMsg"></div>
+        </div>
+    </div>
+
+#
+<!-- ============ سیکشن 2 ختم ============ -->
+
+
+<!-- ================================================================
+     سیکشن 3 شروع: ٹاسک ٹریکر اور پوائنٹس سسٹم
+     ================================================================ -->
+*
+
+    <div class="card">
+        <div class="section-heading" style="color:var(--accent);">📋 ٹاسک ٹریکر اور پوائنٹس سسٹم</div>
+        <div class="duty-card">
+            <select id="memberSelect" class="select-field" onchange="startTasks()">
+                <option value="">-- ممبر منتخب کریں --</option>
+                <option value="علی">علی</option>
+                <option value="احمد">احمد</option>
+            </select>
+
+            <div class="task-box">
+                <div class="task-name" id="taskText">پہلے ممبر منتخب کریں</div>
+                <div class="task-points" id="taskPoints">0 Points</div>
+            </div>
+
+            <div class="buttons-grid">
+                <button class="btn btn-done" onclick="submitTask('ہو گیا')">✅ ہو گیا</button>
+                <button class="btn btn-not-done" onclick="submitTask('نہیں ہوا')">❌ نہیں ہوا</button>
+                <button class="btn btn-na" onclick="submitTask('کرنا نہیں تھا')">⚪ کرنا نہیں تھا</button>
+            </div>
+
+            <div class="history-card">
+                <div id="historyList" class="task-history-scroll"></div>
+                <div class="total-score-bar" id="totalScoreText">ٹوٹل پوائنٹس: 0</div>
+            </div>
+        </div>
+    </div>
+
+#
+<!-- ============ سیکشن 3 ختم ============ -->
+
+
+<!-- ================================================================
+     سیکشن 4 شروع: چھوڑے گئے / اسکیپ شدہ کام
+     ================================================================ -->
+*
+
+    <div class="card">
+        <div class="section-heading" style="color:#0284c7;">✨ چھوڑے گئے / اسکیپ شدہ کام</div>
+
+        <div style="display: flex; justify-content: center; margin-bottom: 14px;">
+            <button class="setting-btn-pro" onclick="toggleSkipSettingsPanel()">⚙️ سیٹنگ پینل</button>
+        </div>
+
+        <div id="skipSettingsPanel" class="inline-settings-panel diet-panel" style="background:#f8fafc; border-color:#cbd5e1;">
+            <div style="font-weight: bold; font-size: 13px; color: var(--golden); margin-bottom: 8px; text-align:center;">⚙️ اسکیپ شدہ ہسٹری کنٹرول پینل</div>
+            <div class="btn-group-custom">
+                <button class="btn btn-secondary" onclick="selectAllSkippedItems()">✅ ال سلیکٹ</button>
+                <button class="btn btn-primary" onclick="deleteSelectedSkippedItems()">🗑️ سلیکٹڈ ڈیلیٹ</button>
+                <button class="btn btn-danger" onclick="clearAllSkippedItems()">❌ ال ڈیلیٹ</button>
+                <button class="btn btn-success" onclick="window.print()">🖨️ پرنٹ</button>
+                <button class="btn btn-secondary" onclick="toggleSkipSettingsPanel()">✖️ کلوز</button>
+            </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+            <div style="background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; border-right: 5px solid #0284c7;">
+                <h4 style="text-align:center; margin-top: 0; color: #0284c7; margin-bottom: 10px; font-size: 14px;">👤 علی (Ali)</h4>
+                <div style="font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 6px;">فعال کام:</div>
+                <ul id="ali-active-list" style="list-style: none; padding: 0; margin: 0 0 12px 0;"></ul>
+                <div style="font-size: 12px; font-weight: bold; color: var(--golden); margin-bottom: 4px;">اسکیپ شدہ کام (لست):</div>
+                <div id="ali-skipped-scroll-list" style="max-height: 140px; overflow-y: auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px;"></div>
+            </div>
+
+            <div style="background: #f8fafc; padding: 15px; border-radius: 10px; border: 1px solid #e2e8f0; border-right: 5px solid #16a34a;">
+                <h4 style="text-align:center; margin-top: 0; color: #16a34a; margin-bottom: 10px; font-size: 14px;">👤 احمد (Ahmad)</h4>
+                <div style="font-size: 12px; font-weight: bold; color: #64748b; margin-bottom: 6px;">فعال کام:</div>
+                <ul id="ahmad-active-list" style="list-style: none; padding: 0; margin: 0 0 12px 0;"></ul>
+                <div style="font-size: 12px; font-weight: bold; color: var(--golden); margin-bottom: 4px;">اسکیپ شدہ کام (لست):</div>
+                <div id="ahmad-skipped-scroll-list" style="max-height: 140px; overflow-y: auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 6px; padding: 6px;"></div>
+            </div>
+        </div>
+
+        <div style="background: #fffdf4; padding: 15px; border-radius: 10px; border: 1px solid #fde68a;">
+            <h4 style="text-align:center; margin-top: 0; color: var(--golden); margin-bottom: 12px; font-size: 14px;">⚡ کام اسکیپ کریں (لسٹ سے خارج کریں)</h4>
+
+            <div style="display: grid; grid-template-columns: 1fr 1.2fr 1.5fr auto; gap: 10px; align-items: center;">
+                <div>
+                    <label style="font-size: 0.85em; color: #334155; display: block; margin-bottom: 4px;">ممبر:</label>
+                    <select id="skip-member-select" onchange="updateTaskDropdown()" class="select-field">
+                        <option value="ali">علی (Ali)</option>
+                        <option value="ahmad">احمد (Ahmad)</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size: 0.85em; color: #334155; display: block; margin-bottom: 4px;">کام:</label>
+                    <select id="skip-task-select" class="select-field"></select>
+                </div>
+                <div>
+                    <label style="font-size: 0.85em; color: #334155; display: block; margin-bottom: 4px;">ریزن (وجہ):</label>
+                    <input type="text" id="skip-reason-input" placeholder="اسکیپ کی وجہ درج کریں..." class="select-field">
+                </div>
+                <div style="align-self: end;">
+                    <button class="btn btn-danger" style="white-space:nowrap;" onclick="submitAndRemoveTask()">سبمٹ کریں</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+#
+<!-- ============ سیکشن 4 ختم ============ -->
+
+
+<!-- ================================================================
+     سیکشن 5 شروع: ممبران فائنل رزلٹ شیٹ
+     ================================================================ -->
+*
+
+    <div class="card" style="border: 1px solid var(--border); border-right: 5px solid var(--success);">
+        <div class="section-heading" style="color:var(--success);">📈 ممبران فائنل رزلٹ شیٹ</div>
+        <table class="clean-result-table">
+            <thead><tr><th>ممبر کا نام</th><th>پوائنٹس</th><th>کارکردگی گریڈ</th></tr></thead>
+            <tbody id="finalResultTableBody"></tbody>
+        </table>
+    </div>
+
+#
+<!-- ============ سیکشن 5 ختم ============ -->
+
+
+<!-- ================================================================
+     سیکشن 6 شروع: صحت اور علامات کا ٹریکر (11 بٹن + تفصیل)
+     ================================================================ -->
+*
+
+    <div class="card" style="border-right: 5px solid var(--purple);">
+        <div class="section-heading" style="color:var(--purple);">🩺 صحت اور علامات کا ٹریکر</div>
+
+        <div style="margin-bottom: 14px; text-align: center;">
+            <label style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 6px; color: #334155;">ممبر سلیکٹ کریں:</label>
+            <select id="healthMemberSelect" class="select-field" style="max-width:300px; margin:0 auto; text-align:center;">
+                <option value="علی">علی</option>
+                <option value="احمد">احمد</option>
+            </select>
+        </div>
+
+        <div style="background: #f5f3ff; border: 1px solid #ddd6fe; color: var(--purple); padding: 12px; border-radius: 8px; font-weight: bold; font-size: 14px; text-align: center; margin-bottom: 14px;">
+            <span id="symptomTitleText">🔍 علامت: گیس / پیٹ میں ابھار</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 8px; margin-bottom: 16px;">
+            <button type="button" class="btn" style="background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; font-size:12px;" onclick="handleSymptom('1. ٹھیک ہے')">1. ٹھیک ہے</button>
+            <button type="button" class="btn" style="background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; font-size:12px;" onclick="handleSymptom('2. نہیں ٹھیک')">2. نہیں ٹھیک</button>
+            <button type="button" class="btn" style="background: #fef3c7; color: #92400e; border: 1px solid #fde68a; font-size:12px;" onclick="handleSymptom('3. تھوڑا مسئلہ ہے')">3. تھوڑا مسئلہ ہے</button>
+            <button type="button" class="btn" style="background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; font-size:12px;" onclick="handleSymptom('4. کبھی کبھی مسئلہ ہوتا ہے')">4. کبھی کبھی</button>
+            <button type="button" class="btn" style="background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; font-size:12px;" onclick="handleSymptom('5. مسئلہ سیم پہلے کی طرح ہے')">5. سیم پہلے جیسا</button>
+            <button type="button" class="btn" style="background: #ccfbf1; color: #115e59; border: 1px solid #99f6e4; font-size:12px;" onclick="handleSymptom('6. مسئلہ بہتر ہے پہلے سے')">6. بہتر ہے پہلے سے</button>
+            <button type="button" class="btn" style="background: #ffedd5; color: #9a3412; border: 1px solid #fed7aa; font-size:12px;" onclick="handleSymptom('7. کبھی زیادہ ہے مسئلہ')">7. کبھی زیادہ ہے</button>
+            <button type="button" class="btn" style="background: #fce7f3; color: #9d174d; border: 1px solid #fbcfe8; font-size:12px;" onclick="handleSymptom('8. مسئلہ بہت زیادہ ہے')">8. بہت زیادہ ہے</button>
+            <button type="button" class="btn" style="background: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; font-size:12px;" onclick="handleSymptom('9. مسئلہ زیادہ ہے')">9. مسئلہ زیادہ ہے</button>
+            <button type="button" class="btn" style="background: #ede9fe; color: #6d28d9; border: 1px solid #ddd6fe; font-size:12px;" onclick="handleSymptom('10. بار بار وہی مسئلہ ریپیٹ ہو رہا ہے')">10. بار بار ریپیٹ</button>
+            <button type="button" class="btn" style="background: #ccfbf1; color: #0f766e; border: 1px solid #5eead4; font-size:12px;" onclick="handleSymptom('11. دیگر صورتحال')">11. دیگر صورتحال</button>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 6px; color: #334155;">تفصیل درج کریں:</label>
+            <textarea id="symptomDetailedNotes" rows="3" placeholder="یہاں تفصیل لکھیں..." class="select-field" style="font-weight:normal;"></textarea>
+        </div>
+
+        <button type="button" class="btn" style="background: var(--purple); width: 100%;" onclick="submitSymptomForm()">💾 سبمٹ کریں</button>
+        <div id="symptomStatusMsg" style="font-size: 12px; margin-top: 8px; font-weight: bold; text-align: center;"></div>
+    </div>
+
+#
+<!-- ============ سیکشن 6 ختم ============ -->
+
+
+<!-- ================================================================
+     سیکشن 7 شروع: ڈائٹ روٹین سسٹم (انٹری فارم)
+     ================================================================ -->
+*
+
+    <div class="card" style="border-right: 5px solid var(--warning); background: #fffdf4;">
+        <div class="section-heading" style="color:var(--warning);">🍽️ ڈائٹ روٹین سسٹم</div>
+
+        <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+            <button class="setting-btn-pro" onclick="toggleDietSettingsPanel()">⚙️ سیٹنگ</button>
+        </div>
+
+        <div id="dietSettingsPanel" class="inline-settings-panel diet-panel">
+            <div style="font-weight: bold; font-size: 12px; color: var(--warning); margin-bottom: 8px; text-align:center;">⚙️ ڈائٹ روٹین کنٹرول پینل</div>
+            <div class="btn-group-custom">
+                <button class="btn btn-secondary" onclick="selectAllDietItems()">✅ ال سلیکٹ</button>
+                <button class="btn btn-primary" onclick="deleteSelectedDietItems()">🗑️ سلیکٹڈ ڈیلیٹ</button>
+                <button class="btn btn-danger" onclick="clearAllDietItems()">❌ ال ڈیلیٹ</button>
+                <button class="btn btn-success" onclick="window.print()">🖨️ پرنٹ</button>
+                <button class="btn btn-secondary" onclick="toggleDietSettingsPanel()">✖️ کلوز</button>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 14px; text-align: center;">
+            <label style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 6px; color: #334155;">ممبر سلیکٹ کریں:</label>
+            <select id="dietMemberSelect" class="select-field" style="max-width:300px; margin:0 auto; text-align:center;">
+                <option value="علی">علی</option>
+                <option value="احمد">احمد</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 14px; text-align: center;">
+            <label style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 6px; color: #0f172a;">⏰ کھانے یا پینے کا وقت (Time Slot):</label>
+            <select id="mealTimeSlot" class="select-field" style="max-width:300px; margin:0 auto; text-align:center; background:#fffbeb; border:1px solid #d97706;">
+                <option value="صبح کا ناشتہ">1. صبح کا ناشتہ</option>
+                <option value="دوپہر کا کھانا">2. دوپہر کا کھانا</option>
+                <option value="شام کی چائے">3. شام کی چائے</option>
+                <option value="رات کا کھانا">4. رات کا کھانا</option>
+            </select>
+        </div>
+
+        <div style="max-height: 220px; overflow-y: auto; border: 1px solid #fde68a; border-radius: 8px; padding: 10px; background: #ffffff; margin-bottom: 16px;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+
+                <details class="diet-item-section" open><summary>1️⃣ گندم / روٹی آئٹم</summary><div class="diet-item-content"><input type="checkbox" class="diet-item-chk" style="width:15px;height:15px;" checked><span>گندم روٹی / نان</span><select id="dietVal1"><option>1</option><option>2</option><option>0</option></select></div></details>
+
+                <details class="diet-item-section" open><summary>2️⃣ دودھ / لسی آئٹم</summary><div class="diet-item-content"><input type="checkbox" class="diet-item-chk" style="width:15px;height:15px;" checked><span>خالص دودھ / لسی</span><select id="dietVal2"><option>گلاس</option><option>کپ</option><option>0</option></select></div></details>
+
+                <details class="diet-item-section" open><summary>3️⃣ مکس جنک فوڈ</summary><div class="diet-item-content"><input type="checkbox" class="diet-item-chk" style="width:15px;height:15px;"><span>جنک فوڈ / سنیکس</span><select id="dietVal3"><option>0</option><option>تھوڑا</option><option>زیادہ</option></select></div></details>
+
+            </div>
+        </div>
+
+        <div style="margin-bottom: 16px;">
+            <label style="font-weight: bold; font-size: 13px; display: block; margin-bottom: 6px; color: #334155;">ڈائٹ کی مزید تفصیل:</label>
+            <textarea id="dietDetailedNotes" rows="3" placeholder="یہاں مزید تفصیل لکھیں..." class="select-field" style="font-weight:normal;"></textarea>
+        </div>
+
+        <button class="btn" style="background: #d97706; width: 100%; padding: 16px; font-size: 16px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" onclick="saveMealRecordToStore()">💾 ڈائٹ روٹین محفوظ کریں (سیو)</button>
+        <div id="dietStatusMsg" style="font-size: 13px; margin-top: 10px; font-weight: bold; text-align: center;"></div>
+    </div>
+
+#
+<!-- ============ سیکشن 7 ختم ============ -->
+
+
+<!-- ================================================================
+     سیکشن 8 شروع: ڈائٹ ہسٹری ریکارڈ (اسکرول ایبل)
+     ================================================================ -->
+*
+
+    <div class="card" style="border-right: 5px solid var(--warning);">
+        <div class="section-heading" style="color:var(--warning);">🍽️ ڈائٹ ہسٹری ریکارڈ</div>
+
+        <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+            <button class="setting-btn-pro" onclick="toggleDietHistorySettings()">⚙️ سیٹنگ</button>
+        </div>
+
+        <div id="dietHistorySettingsPanel" class="inline-settings-panel diet-panel">
+            <div style="font-weight: bold; font-size: 12px; color: var(--warning); margin-bottom: 8px; text-align:center;">⚙️ ڈائٹ ہسٹری کنٹرول پینل</div>
+            <div class="btn-group-custom">
+                <button class="btn btn-secondary" onclick="selectAllDietHistory()">✅ ال سلیکٹ</button>
+                <button class="btn btn-primary" onclick="deleteSelectedDietHistory()">🗑️ سلیکٹڈ ڈیلیٹ</button>
+                <button class="btn btn-danger" onclick="clearAllDietHistory()">❌ ال ڈیلیٹ</button>
+                <button class="btn btn-success" onclick="window.print()">🖨️ پرنٹ</button>
+                <button class="btn btn-secondary" onclick="toggleDietHistorySettings()">✖️ کلوز</button>
+            </div>
+        </div>
+
+        <div id="dietHistoryLog" class="history-scroll-box diet-history-container"></div>
+    </div>
+
+#
+<!-- ============ سیکشن 8 ختم ============ -->
+
+
+<!-- ================================================================
+     سیکشن 9 شروع: علامات ٹریکر ہسٹری ریکارڈ (اسکرول ایبل)
+     ================================================================ -->
+*
+
+    <div class="card" style="border-right: 5px solid var(--purple);">
+        <div class="section-heading" style="color:var(--purple);">🩺 علامات ٹریکر ہسٹری ریکارڈ</div>
+
+        <div style="display: flex; justify-content: center; margin-bottom: 12px;">
+            <button class="setting-btn-pro" onclick="toggleSymptomHistorySettings()">⚙️ سیٹنگ</button>
+        </div>
+
+        <div id="symptomHistorySettingsPanel" class="inline-settings-panel symptom-panel">
+            <div style="font-weight: bold; font-size: 12px; color: var(--purple); margin-bottom: 8px; text-align:center;">⚙️ علامات ٹریکر کنٹرول پینل</div>
+            <div class="btn-group-custom">
+                <button class="btn btn-secondary" onclick="selectAllSymptomHistory()">✅ ال سلیکٹ</button>
+                <button class="btn btn-primary" onclick="deleteSelectedSymptomHistory()">🗑️ سلیکٹڈ ڈیلیٹ</button>
+                <button class="btn btn-danger" onclick="clearAllSymptomHistory()">❌ ال ڈیلیٹ</button>
+                <button class="btn btn-success" onclick="window.print()">🖨️ پرنٹ</button>
+                <button class="btn btn-secondary" onclick="toggleSymptomHistorySettings()">✖️ کلوز</button>
+            </div>
+        </div>
+
+        <div id="symptomHistoryLog" class="history-scroll-box symptom-history-container"></div>
+    </div>
+
+#
+<!-- ============ سیکشن 9 ختم ============ -->
+
+
+<!-- ================================================================
+     سیکشن 10 شروع: پرسنٹیج / خلاصہ باکسز (آخری حصہ)
+     ================================================================ -->
+*
+
+    <div class="section-heading summary-heading">📊 مجموعی کارکردگی اور بہتری کا خلاصہ</div>
+    <div class="percent-row">
+        <div class="percent-box percent-box-blue"><div class="percent-label">🍽️ ڈائٹ پرسنٹیج</div><div class="percent-value" id="dietPercentageValue">0%</div></div>
+        <div class="percent-box percent-box-green"><div class="percent-label">🩺 علامات پرسنٹیج</div><div class="percent-value" id="symptomPercentageValue">0%</div></div>
+        <div class="percent-box percent-box-purple"><div class="percent-label">📈 مجموعی بہتری</div><div class="percent-value" id="overallImprovementValue">0%</div></div>
+    </div>
+
+#
+<!-- ============ سیکشن 10 ختم ============ -->
+
+</div><!-- container ختم -->
+
+
+<!-- ================================================================
+     سیکشن 11 شروع: تمام جاوا اسکرپٹ منطق (ایک جگہ، نام الگ الگ)
+     ================================================================ -->
+*
+<script>
+/* ---------- الرٹ ٹائمر ---------- */
+let alertCountdown = 25;
+let alertTimerId = null;
+let alertSoundInterval = null;
+
+function playBellSound() {
+    try {
+        let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        let osc = audioCtx.createOscillator();
+        let gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.type = "sine";
+        osc.frequency.value = 900;
+        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.4);
+    } catch (e) {
+        console.log("Audio permission required");
+    }
+}
+
+alertTimerId = setInterval(() => {
+    alertCountdown--;
+    const timerEl = document.getElementById('alertTimer');
+    if (timerEl) timerEl.innerText = alertCountdown;
+
+    if (alertCountdown <= 0) {
+        clearInterval(alertTimerId);
+        let alertBar = document.getElementById('alertTickerBar');
+        alertBar.classList.add('continuous-blink');
+        document.getElementById('alertMsgText').innerText = "🚨 وقت ختم! فوری توجہ فرمائیں - الرٹ جاری ہے!";
+        alertSoundInterval = setInterval(playBellSound, 1000);
+    }
+}, 1000);
+
+function skipAlertTicker() {
+    if (alertSoundInterval) clearInterval(alertSoundInterval);
+    if (alertTimerId) clearInterval(alertTimerId);
+    document.getElementById('alertTickerBar').style.display = 'none';
+}
+
+/* ---------- ڈیوٹی ممبران روٹیشن ---------- */
+const allMembers = [
+    ["علی احمد", "محمد عثمان"],
+    ["بلال حسن", "حمزہ خان"],
+    ["طارق محمود", "یاسر عرفات"],
+    ["سفیان علی", "زاہد خان"]
+];
+
+function updateDutyRoster() {
+    let today = new Date();
+    let dayOfYear = Math.floor((today - new Date(today.getFullYear(), 0, 0)) / (1000 * 60 * 60 * 24));
+    let dutyGroupIndex = dayOfYear % allMembers.length;
+    let currentPair = allMembers[dutyGroupIndex];
+
+    document.getElementById('member1Name').innerText = currentPair[0];
+    document.getElementById('member2Name').innerText = currentPair[1];
+
+    let select = document.getElementById('leaveMemberSelect');
+    select.innerHTML = `
+        <option value="">-- ممبر منتخب کریں --</option>
+        <option value="${currentPair[0]}">1. ${currentPair[0]}</option>
+        <option value="${currentPair[1]}">2. ${currentPair[1]}</option>
+    `;
+}
+
+function submitLeaveRequest() {
+    let selectElement = document.getElementById('leaveMemberSelect');
+    let selectedName = selectElement.value;
+    let msgBox = document.getElementById('leaveStatusMsg');
+
+    if (selectedName !== "") {
+        msgBox.style.display = 'block';
+        msgBox.style.background = '#ecfdf5';
+        msgBox.style.color = '#047857';
+        msgBox.style.borderColor = '#a7f3d0';
+        msgBox.innerText = "✅ " + selectedName + " کی چھٹی باقاعدہ سبمٹ ہو گئی ہے۔";
+    } else {
+        msgBox.style.display = 'block';
+        msgBox.style.background = '#fef2f2';
+        msgBox.style.color = '#ef4444';
+        msgBox.style.borderColor = '#fecaca';
+        msgBox.innerText = "⚠️ براے مہربانی ڈراپ ڈاؤن لسٹ سے کسی ایک ممبر کا انتخاب کریں!";
+    }
+}
+
+/* ---------- ٹاسک ٹریکر منطق ---------- */
+const tasksList = [
+    { title: "کمرے کی صفائی اور ترتیب", points: 10 },
+    { title: "حاضری لاگ بک کی تیاری", points: 5 },
+    { title: "سیکیورٹی کیمرہ چیکنگ", points: 10 },
+    { title: "سامان کا جائزہ", points: 5 },
+    { title: "لائٹس اور سوئچ چیکنگ", points: 5 },
+    { title: "روزانہ کی فائنینشل رپورٹ", points: 10 }
+];
+let taskCurrentIndex=0, taskTotalPoints=0, selectedMemberTask="";
+let memberTaskScores=JSON.parse(localStorage.getItem('memberTaskScores'))||{};
+let memberTaskHistory=JSON.parse(localStorage.getItem('memberTaskHistory'))||{};
+function getTaskMemberKey(member){return member==='علی'?'ali':(member==='احمد'?'ahmad':member);}
+function getPerformanceGrade(points){const pct=Math.min(100,Math.round((points/45)*100));if(pct>=80)return'Excellent';if(pct>=60)return'Good';if(pct>=40)return'Average';return'Needs Improvement';}
+function renderFinalResults(){const body=document.getElementById('finalResultTableBody');if(!body)return;body.innerHTML=['علی','احمد'].map(member=>{const points=Number(memberTaskScores[member]||0);return`<tr><td><b>${member}</b></td><td><span style="font-weight:bold;color:var(--success);">${points} پوائنٹس</span></td><td><span style="background:#e0f2fe;color:#0369a1;padding:4px 10px;border-radius:12px;font-size:12px;">${getPerformanceGrade(points)}</span></td></tr>`}).join('');}
+function renderTaskHistory(){const list=document.getElementById('historyList');if(!list)return;const history=memberTaskHistory[selectedMemberTask]||[];list.innerHTML=history.length?history.map(item=>`<div class="history-item ${item.statusClass}"><span>${item.title} (${item.points} Pts)</span><span>${item.status}</span></div>`).join(''):'<div style="color:#94a3b8;text-align:center;padding:18px 0;font-size:12px;">اس ممبر کی ٹاسک ہسٹری ابھی خالی ہے۔</div>'; }
+function startTasks(){selectedMemberTask=document.getElementById('memberSelect').value;if(!selectedMemberTask){document.getElementById('taskText').innerText='پہلے ممبر منتخب کریں';document.getElementById('taskPoints').innerText='0 Points';document.getElementById('totalScoreText').innerText='ٹوٹل پوائنٹس: 0';document.getElementById('historyList').innerHTML='';return;}taskCurrentIndex=0;taskTotalPoints=Number(memberTaskScores[selectedMemberTask]||0);renderTaskHistory();showTask();}
+function showTask(){document.getElementById('totalScoreText').innerText=`ٹوٹل پوائنٹس: ${taskTotalPoints}`;if(taskCurrentIndex<tasksList.length){document.getElementById('taskText').innerText=tasksList[taskCurrentIndex].title;document.getElementById('taskPoints').innerText=`${tasksList[taskCurrentIndex].points} Points`;}else{document.getElementById('taskText').innerText='🎉 تمام کام مکمل!';document.getElementById('taskPoints').innerText=`حتمی اسکور: ${taskTotalPoints}`;}}
+function submitTask(status){if(!selectedMemberTask){document.getElementById('taskText').innerText='⚠️ پہلے ممبر منتخب کریں!';return;}if(taskCurrentIndex>=tasksList.length)return;const currentTask=tasksList[taskCurrentIndex];const statusClass=status==='ہو گیا'?'status-done':(status==='نہیں ہوا'?'status-not-done':'status-na');if(status==='ہو گیا')taskTotalPoints+=currentTask.points;memberTaskScores[selectedMemberTask]=taskTotalPoints;if(!memberTaskHistory[selectedMemberTask])memberTaskHistory[selectedMemberTask]=[];memberTaskHistory[selectedMemberTask].unshift({title:currentTask.title,points:currentTask.points,status,statusClass});localStorage.setItem('memberTaskScores',JSON.stringify(memberTaskScores));localStorage.setItem('memberTaskHistory',JSON.stringify(memberTaskHistory));if(status==='کرنا نہیں تھا')addTaskTrackerSkippedRecord(selectedMemberTask,currentTask.title);renderTaskHistory();renderFinalResults();taskCurrentIndex++;showTask();}
+function addTaskTrackerSkippedRecord(memberName,taskTitle){const memberKey=getTaskMemberKey(memberName);if(typeof skippedHistoryLogs==='undefined')return;if(skippedHistoryLogs.some(item=>item.source==='task-tracker'&&item.member===memberName&&item.task===taskTitle))return;skippedHistoryLogs.push({id:Date.now(),memberKey,member:memberName,task:taskTitle,reason:'ٹاسک ٹریکر سے اسکیپ کیا گیا',source:'task-tracker'});localStorage.setItem('skippedHistoryLogs',JSON.stringify(skippedHistoryLogs));if(typeof renderTasksUI==='function')renderTasksUI();}
+
+/* ---------- اسکیپ اور ریموو منطق ---------- */
+let memberTasks = JSON.parse(localStorage.getItem('memberActiveTasks')) || {
+    ali: ["صبح کی چیکنگ", "شام کی رپورٹ", "ڈیٹا بیک اپ"],
+    ahmad: ["سائٹ وزٹ", "صفائی کا معائنہ", "کیمپ کی سیکیورٹی"]
+};
+
+let skippedHistoryLogs = JSON.parse(localStorage.getItem('skippedHistoryLogs')) || [
+    { id: 1, memberKey: "ali", member: "علی", task: "ہفتہ وار میٹنگ", reason: "طبی طبیعت ناساز تھی" }
+];
+
+function toggleSkipSettingsPanel() {
+    let panel = document.getElementById('skipSettingsPanel');
+    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+}
+
+function renderTasksUI() {
+    const aliList = document.getElementById('ali-active-list');
+    const ahmadList = document.getElementById('ahmad-active-list');
+
+    if (memberTasks.ali.length === 0) {
+        aliList.innerHTML = `<li style="color: #16a34a; padding: 4px 0; font-size: 12px;">تمام کام مکمل ہو چکے ہیں</li>`;
+    } else {
+        aliList.innerHTML = memberTasks.ali.map(task => `
+            <li style="padding: 5px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+                <span>• ${task}</span>
+                <span style="background: rgba(2, 132, 199, 0.1); color: #0284c7; font-size: 0.75em; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Active</span>
+            </li>
+        `).join('');
+    }
+
+    if (memberTasks.ahmad.length === 0) {
+        ahmadList.innerHTML = `<li style="color: #16a34a; padding: 4px 0; font-size: 12px;">تمام کام مکمل ہو چکے ہیں</li>`;
+    } else {
+        ahmadList.innerHTML = memberTasks.ahmad.map(task => `
+            <li style="padding: 5px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+                <span>• ${task}</span>
+                <span style="background: rgba(22, 163, 74, 0.1); color: #16a34a; font-size: 0.75em; padding: 2px 6px; border-radius: 4px; font-weight: bold;">Active</span>
+            </li>
+        `).join('');
+    }
+
+    updateTaskDropdown();
+    renderMemberSkippedLists();
+}
+
+function renderMemberSkippedLists() {
+    let aliContainer = document.getElementById('ali-skipped-scroll-list');
+    let ahmadContainer = document.getElementById('ahmad-skipped-scroll-list');
+
+    let aliSkipped = skippedHistoryLogs.filter(item => item.memberKey === 'ali');
+    let ahmadSkipped = skippedHistoryLogs.filter(item => item.memberKey === 'ahmad');
+
+    if (aliSkipped.length === 0) {
+        aliContainer.innerHTML = '<div style="color: #94a3b8; text-align: center; padding: 10px 0; font-size: 12px;">کوئی اسکیپ نہیں ہوا۔</div>';
+    } else {
+        aliContainer.innerHTML = aliSkipped.map(item => `
+            <div style="padding: 6px; border-bottom: 1px dashed #f1f5f9; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <input type="checkbox" class="skipped-checkbox" data-id="${item.id}" style="width: 14px; height: 14px; cursor: pointer;">
+                    <span><b>${item.task}</b> <span style="color: var(--golden);">(${item.reason})</span></span>
+                </div>
+                <button style="background: var(--danger); color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 10px; cursor: pointer;" onclick="deleteSingleSkipped(${item.id})">ڈیلیٹ</button>
+            </div>
+        `).join('');
+    }
+
+    if (ahmadSkipped.length === 0) {
+        ahmadContainer.innerHTML = '<div style="color: #94a3b8; text-align: center; padding: 10px 0; font-size: 12px;">کوئی اسکیپ نہیں ہوا۔</div>';
+    } else {
+        ahmadContainer.innerHTML = ahmadSkipped.map(item => `
+            <div style="padding: 6px; border-bottom: 1px dashed #f1f5f9; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+                <div style="display: flex; align-items: center; gap: 6px;">
+                    <input type="checkbox" class="skipped-checkbox" data-id="${item.id}" style="width: 14px; height: 14px; cursor: pointer;">
+                    <span><b>${item.task}</b> <span style="color: var(--golden);">(${item.reason})</span></span>
+                </div>
+                <button style="background: var(--danger); color: white; border: none; padding: 2px 6px; border-radius: 4px; font-size: 10px; cursor: pointer;" onclick="deleteSingleSkipped(${item.id})">ڈیلیٹ</button>
+            </div>
+        `).join('');
+    }
+}
+
+function updateTaskDropdown() {
+    const member = document.getElementById('skip-member-select').value;
+    const taskSelect = document.getElementById('skip-task-select');
+    const currentTasks = memberTasks[member];
+
+    if (!currentTasks || currentTasks.length === 0) {
+        taskSelect.innerHTML = `<option value="">کوئی کام موجود نہیں</option>`;
+    } else {
+        taskSelect.innerHTML = currentTasks.map(task => `<option value="${task}">${task}</option>`).join('');
+    }
+}
+
+function submitAndRemoveTask() {
+    const memberKey = document.getElementById('skip-member-select').value;
+    const memberName = (memberKey === 'ali') ? 'علی' : 'احمد';
+    const taskSelect = document.getElementById('skip-task-select');
+    const selectedTask = taskSelect.value;
+    const reasonInput = document.getElementById('skip-reason-input');
+    const reason = reasonInput.value.trim();
+
+    if (!selectedTask || memberTasks[memberKey].length === 0 || !reason) return;
+
+    memberTasks[memberKey] = memberTasks[memberKey].filter(task => task !== selectedTask);
+
+    skippedHistoryLogs.push({
+        id: Date.now(),
+        memberKey: memberKey,
+        member: memberName,
+        task: selectedTask,
+        reason: reason
+    });
+
+    localStorage.setItem('memberActiveTasks', JSON.stringify(memberTasks));
+    localStorage.setItem('skippedHistoryLogs', JSON.stringify(skippedHistoryLogs));
+
+    renderTasksUI();
+    reasonInput.value = '';
+}
+
+function deleteSingleSkipped(id) {
+    skippedHistoryLogs = skippedHistoryLogs.filter(item => item.id !== id);
+    localStorage.setItem('skippedHistoryLogs', JSON.stringify(skippedHistoryLogs));
+    renderTasksUI();
+}
+
+function selectAllSkippedItems() {
+    document.querySelectorAll('.skipped-checkbox').forEach(chk => chk.checked = true);
+}
+
+function deleteSelectedSkippedItems() {
+    let checkboxes = document.querySelectorAll('.skipped-checkbox:checked');
+    let idsToDelete = Array.from(checkboxes).map(chk => parseInt(chk.getAttribute('data-id')));
+    if (idsToDelete.length === 0) return;
+
+    skippedHistoryLogs = skippedHistoryLogs.filter(item => !idsToDelete.includes(item.id));
+    localStorage.setItem('skippedHistoryLogs', JSON.stringify(skippedHistoryLogs));
+    renderTasksUI();
+}
+
+function clearAllSkippedItems() {
+    skippedHistoryLogs = [];
+    localStorage.setItem('skippedHistoryLogs', JSON.stringify(skippedHistoryLogs));
+    renderTasksUI();
+}
+
+/* ---------- علامات ٹریکر فارم منطق ---------- */
+let selectedSymptomStatus = "1. ٹھیک ہے";
+
+function handleSymptom(statusText) {
+    selectedSymptomStatus = statusText;
+    document.getElementById('symptomTitleText').innerText = `🔍 کیفیت: ${statusText}`;
+}
+
+function submitSymptomForm() {
+    let member = document.getElementById('healthMemberSelect').value;
+    let details = document.getElementById('symptomDetailedNotes').value;
+    let statusMsgEl = document.getElementById('symptomStatusMsg');
+
+    if (!details) {
+        statusMsgEl.style.color = "#ef4444";
+        statusMsgEl.innerText = "⚠️ براہ کرم تفصیل کا باکس پُر کریں!";
+        return;
+    }
+
+    statusMsgEl.style.color = "#10b981";
+    statusMsgEl.innerText = `✅ ${member} کے لیے اسٹیٹس (${selectedSymptomStatus}) کا ریکارڈ کامیابی سے سبمٹ ہو گیا!`;
+    symptomHistoryLogs.push({id:Date.now(),member,symptom:document.getElementById('symptomTitleText').innerText.replace(/^🔍 (علامت|کیفیت):\s*/,''),status:selectedSymptomStatus,details,isPositive:['1. ٹھیک ہے','6. بہتر ہے پہلے سے'].includes(selectedSymptomStatus)});
+    renderSymptomHistory();
+    updateSummaryPercentages();
+    setTimeout(() => { statusMsgEl.innerText = ""; }, 3500);
+}
+
+/* ---------- ڈائٹ روٹین سسٹم منطق ---------- */
+function toggleDietSettingsPanel() {
+    let panel = document.getElementById('dietSettingsPanel');
+    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+}
+
+function selectAllDietItems() {
+    document.querySelectorAll('.diet-item-chk').forEach(chk => chk.checked = true);
+}
+
+function deleteSelectedDietItems() {
+    document.querySelectorAll('.diet-item-chk:checked').forEach(chk => chk.checked = false);
+}
+
+function clearAllDietItems() {
+    document.querySelectorAll('.diet-item-chk').forEach(chk => chk.checked = false);
+    document.getElementById('dietDetailedNotes').value = '';
+}
+
+function saveMealRecordToStore() {
+    let member = document.getElementById('dietMemberSelect').value;
+    let timeSlot = document.getElementById('mealTimeSlot').value;
+    let statusMsgEl = document.getElementById('dietStatusMsg');
+
+    statusMsgEl.style.opacity = "1";
+    statusMsgEl.style.color = "#10b981";
+    statusMsgEl.innerText = `✅ (${member}) کے لیے (${timeSlot}) کا ڈائٹ ریکارڈ کامیابی سے محفوظ ہو گیا!`;
+    dietHistoryLogs.push({id:Date.now(),member,slot:timeSlot,v1:`گندم روٹی: ${document.getElementById('dietVal1').value}`,v2:`دودھ: ${document.getElementById('dietVal2').value}`,v3:`جنک: ${document.getElementById('dietVal3').value}`,isGood:document.getElementById('dietVal3').value==='0'});
+    renderDietHistory();
+    updateSummaryPercentages();
+    setTimeout(() => { statusMsgEl.innerText = ""; }, 3500);
+}
+
+/* ---------- ڈائٹ ہسٹری ریکارڈ منطق ---------- */
+let dietHistoryLogs = [
+    { id: 1, slot: "صبح کا ناشتہ", v1: "گندم روٹی: 2", v2: "دودھ: 1 گلاس", v3: "جنک: 0", isGood: true },
+    { id: 2, slot: "دوپہر کا کھانا", v1: "گندم روٹی: 1", v2: "دودھ: 0", v3: "جنک: تھوڑا", isGood: false },
+    { id: 3, slot: "شام کی چائے", v1: "گندم روٹی: 0", v2: "دودھ: 1 کپ", v3: "جنک: 0", isGood: true },
+    { id: 4, slot: "رات کا کھانا", v1: "گندم روٹی: 2", v2: "دودھ: 1 گلاس", v3: "جنک: 0", isGood: true },
+    { id: 5, slot: "اگلا دن - ناشتہ", v1: "گندم روٹی: 1", v2: "دودھ: 1 کپ", v3: "جنک: 0", isGood: true },
+    { id: 6, slot: "اگلا دن - دوپہر", v1: "گندم روٹی: 2", v2: "دودھ: 0", v3: "جنک: زیادہ", isGood: false }
+];
+
+function toggleDietHistorySettings() {
+    let panel = document.getElementById('dietHistorySettingsPanel');
+    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+}
+
+function renderDietHistory() {
+    let dietCont = document.getElementById('dietHistoryLog');
+    if (dietHistoryLogs.length === 0) {
+        dietCont.innerHTML = '<div style="color: #64748b; text-align: center; padding: 40px 0;">کوئی ڈائٹ ہسٹری موجود نہیں۔</div>';
+        return;
+    }
+    dietCont.innerHTML = dietHistoryLogs.map((item) => `
+        <div class="log-row diet-row">
+            <div class="row-left">
+                <input type="checkbox" class="diet-history-checkbox" data-id="${item.id}" style="width: 16px; height: 16px; cursor: pointer;">
+                <span>👤 <b>${item.member || 'ممبر'}</b> · ⏰ <b>${item.slot}</b> (${item.v1} | ${item.v2} | ${item.v3})</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="color:${item.isGood ? 'var(--success)' : 'var(--danger)'}; font-weight:bold; font-size: 11px;">
+                    ${item.isGood ? '✅ اچھی خوراک' : '⚠️ جنک فوڈ'}
+                </span>
+                <button class="btn btn-danger" style="padding: 3px 8px; font-size: 11px;" onclick="deleteSingleDietItem(${item.id})">ڈیلیٹ</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function deleteSingleDietItem(id) {
+    dietHistoryLogs = dietHistoryLogs.filter(item => item.id !== id);
+    renderDietHistory();
+    updateSummaryPercentages();
+}
+
+function selectAllDietHistory() {
+    document.querySelectorAll('.diet-history-checkbox').forEach(chk => chk.checked = true);
+}
+
+function deleteSelectedDietHistory() {
+    let checkboxes = document.querySelectorAll('.diet-history-checkbox:checked');
+    let idsToDelete = Array.from(checkboxes).map(chk => parseInt(chk.getAttribute('data-id')));
+    if (idsToDelete.length === 0) return;
+    dietHistoryLogs = dietHistoryLogs.filter(item => !idsToDelete.includes(item.id));
+    renderDietHistory();
+    updateSummaryPercentages();
+}
+
+function clearAllDietHistory() {
+    dietHistoryLogs = [];
+    renderDietHistory();
+    updateSummaryPercentages();
+}
+
+/* ---------- علامات ہسٹری ریکارڈ منطق ---------- */
+let symptomHistoryLogs = [
+    { id: 1, member: "علی", symptom: "گیس / پیٹ میں ابھار", status: "1. ٹھیک ہے", isPositive: true },
+    { id: 2, member: "احمد", symptom: "قبض کی شکایت", status: "2. نہیں ٹھیک", isPositive: false },
+    { id: 3, member: "علی", symptom: "سر درد", status: "6. بہتر ہے پہلے سے", isPositive: true },
+    { id: 4, member: "احمد", symptom: "چکر آنا", status: "8. مسئلہ بہت زیادہ ہے", isPositive: false },
+    { id: 5, member: "علی", symptom: "معدے کی جلن", status: "3. تھوڑا مسئلہ ہے", isPositive: false },
+    { id: 6, member: "احمد", symptom: "گیس / پیٹ میں ابھار", status: "1. ٹھیک ہے", isPositive: true }
+];
+
+function toggleSymptomHistorySettings() {
+    let panel = document.getElementById('symptomHistorySettingsPanel');
+    panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
+}
+
+function renderSymptomHistory() {
+    let sympCont = document.getElementById('symptomHistoryLog');
+    if (symptomHistoryLogs.length === 0) {
+        sympCont.innerHTML = '<div style="color: #64748b; text-align: center; padding: 40px 0;">کوئی علامت ہسٹری موجود نہیں۔</div>';
+        return;
+    }
+    sympCont.innerHTML = symptomHistoryLogs.map((item) => `
+        <div class="log-row symptom-row">
+            <div class="row-left">
+                <input type="checkbox" class="symptom-history-checkbox" data-id="${item.id}" style="width: 16px; height: 16px; cursor: pointer;">
+                <span>👤 <b>${item.member}</b>: ${item.symptom} ➔ <b style="color:var(--purple);">${item.status}</b></span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="color:${item.isPositive ? 'var(--success)' : 'var(--danger)'}; font-weight:bold; font-size: 11px;">
+                    ${item.isPositive ? '👍 بہتر' : '⚠️ مسئلہ'}
+                </span>
+                <button class="btn btn-danger" style="padding: 3px 8px; font-size: 11px;" onclick="deleteSingleSymptomItem(${item.id})">ڈیلیٹ</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function deleteSingleSymptomItem(id) {
+    symptomHistoryLogs = symptomHistoryLogs.filter(item => item.id !== id);
+    renderSymptomHistory();
+    updateSummaryPercentages();
+}
+
+function selectAllSymptomHistory() {
+    document.querySelectorAll('.symptom-history-checkbox').forEach(chk => chk.checked = true);
+}
+
+function deleteSelectedSymptomHistory() {
+    let checkboxes = document.querySelectorAll('.symptom-history-checkbox:checked');
+    let idsToDelete = Array.from(checkboxes).map(chk => parseInt(chk.getAttribute('data-id')));
+    if (idsToDelete.length === 0) return;
+    symptomHistoryLogs = symptomHistoryLogs.filter(item => !idsToDelete.includes(item.id));
+    renderSymptomHistory();
+    updateSummaryPercentages();
+}
+
+function clearAllSymptomHistory() {
+    symptomHistoryLogs = [];
+    renderSymptomHistory();
+    updateSummaryPercentages();
+}
+
+function updateSummaryPercentages(){const dietTotal=dietHistoryLogs.length,dietGood=dietHistoryLogs.filter(item=>item.isGood).length;const symptomTotal=symptomHistoryLogs.length,symptomPositive=symptomHistoryLogs.filter(item=>item.isPositive).length;const dietPct=dietTotal?Math.round(dietGood/dietTotal*100):0,symptomPct=symptomTotal?Math.round(symptomPositive/symptomTotal*100):0,overall=Math.round((dietPct+symptomPct)/2);const a=document.getElementById('dietPercentageValue'),b=document.getElementById('symptomPercentageValue'),c=document.getElementById('overallImprovementValue');if(a)a.innerText=`${dietPct}%`;if(b)b.innerText=`${symptomPct}%`;if(c)c.innerText=`${overall}%`;}
+
+/* ---------- صفحہ لوڈ پر سب کچھ رینڈر ---------- */
+document.addEventListener("DOMContentLoaded", function () {
+    updateDutyRoster();
+    renderTasksUI();
+    renderFinalResults();
+    renderDietHistory();
+    renderSymptomHistory();
+    updateSummaryPercentages();
+});
+</script>
+#
+<!-- ============ سیکشن 11 ختم ============ -->
+
+</body>
+</html>
